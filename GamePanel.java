@@ -167,7 +167,7 @@ public class GamePanel extends JPanel implements Runnable{
          * select the same index twice
          */
         
-        idx = selector.getActualBlock();
+        idx = selector.getActualBlock() - 1;
         if(userSelection1 < 0){
             userSelection1 = block[idx].getValue();
         }
@@ -186,7 +186,7 @@ public class GamePanel extends JPanel implements Runnable{
             System.out.println("Key pressed!");
             selector.keyPressed(e);
             // this.keyPressed(e);
-            // doOnEnter(e);
+            doOnEnter(e);
 
         }
         public void keyReleased(KeyEvent e){
