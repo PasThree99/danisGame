@@ -108,7 +108,10 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void draw(Graphics g){
-
+        /* 
+         * Re-draw echch element of the game in case 
+         * the position has changed
+         */
         for (int i = 0; i < NUM_OF_BLOCKS; i++){
             block[i].draw(g);
         }
@@ -117,14 +120,11 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void move(){
-        // paddle1.move();
-        // paddle2.move();
-        // ball.move();
         selector.move();
     }
     
     public void run(){
-        // game Loop
+        /* Game main loop */
         long lastTime = System.nanoTime();
         double amountOfTicks = 60.0;
         double ns = 1000000000 / amountOfTicks; // nano seconds
@@ -156,7 +156,6 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void doOnEnter(KeyEvent e){
         int idx;
-        System.out.println("Enter here!");
 
         if(e.getKeyCode() != KeyEvent.VK_ENTER){
             return;
@@ -181,18 +180,13 @@ public class GamePanel extends JPanel implements Runnable{
     // Action listener
     public class AL extends KeyAdapter{
         public void keyPressed(KeyEvent e){
-            // paddle1.keyPressed(e);
-            // paddle2.keyPressed(e);
             System.out.println("Key pressed!");
             selector.keyPressed(e);
-            // this.keyPressed(e);
             doOnEnter(e);
 
         }
-        public void keyReleased(KeyEvent e){
-            // paddle1.keyReleased(e);
-            // paddle2.keyReleased(e);
-
+        public void keyReleased(KeyEvent e){   
+            /* May be usefull */
         }
     }
 }
