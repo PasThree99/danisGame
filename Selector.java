@@ -20,12 +20,17 @@ public class Selector extends Rectangle{
 
 
     Selector(int xPos, int yPos, int size){
+        /*
+         * The selector is used by the user to choose which block
+         * he's going to pick to sup up to the objective value
+         */
         super (xPos, yPos, size, size);
         actBlock = 1;
 
     }
 
     public void setGlobals(int wid, int hei, int numblk, int blksz){
+        /* Get all the globals from GamePanel*/
         GAME_HEIGHT = hei;
         GAME_WIDTH = wid;
         NUM_OF_BLOCKS = numblk;
@@ -49,15 +54,26 @@ public class Selector extends Rectangle{
 
     public void keyPressed(KeyEvent e){
         System.out.println("here");
+        /* If the key up is pressed the user
+         * wants to go up. The array of blocks is
+         * displayed in a descending order, meaning that,
+         * if we want to go up, that means that we must 
+         * move to the previuos index.
+         * This also applies to the down key, but 
+         * viceversa, if the user wants to go down we
+         * must go to the next block, increasing the block
+         * count. 
+         * Also, for both cases, check if we are still inside 
+         * the limits that the game marks (aka, we are not al block 0 or
+         * bloc NUM_OF_BLOCKS + 1)
+         * */
         if(e.getKeyCode() == KeyEvent.VK_UP){
-            System.out.println("AAAAAAAAAA");
             if(actBlock > 1){
                 setYPos(y - (BLOCKS_SIZE + 10));
                 actBlock --;
             }
         }
         else if(e.getKeyCode() == KeyEvent.VK_DOWN){
-            System.out.println("AAAAAAAAAA");
             if(actBlock < NUM_OF_BLOCKS){
                 setYPos(y + BLOCKS_SIZE + 10);
                 actBlock ++;

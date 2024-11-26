@@ -6,27 +6,48 @@ import static javax.swing.JOptionPane.showMessageDialog;
 // import java.util.Random;
 
 public class GamePanel extends JPanel implements Runnable{
+    /* Window width in pixels */
     static final int GAME_WIDTH = 1400;
+    
+    /* Window height in pixels */
     static final int GAME_HEIGHT = 800;
+
+    /* Game Dimension */
     static final Dimension SCREEN_SIZE = new Dimension(GAME_WIDTH, GAME_HEIGHT);
+    
+    /* Num of blocks on the game (change BLOCK_SIZE if they no longer fit) */
     static final int NUM_OF_BLOCKS = 4;
+    
+    /* Block size in pixels (square with side BLOCKS_SIZE px) */
     static final int BLOCKS_SIZE = 100;
+    
+    /* Target number */
     int objectiveNumber;
 
-
+    /* Game thread in charge of repaint the window and helper objects */
     Thread gameThread;
     Image image;
-    Random random;
     Graphics graphics;
+
+    /* Random number generator */
+    Random random;
+
+    /* Array of blocks */
     Block[] block;
+
+    /* User selector*/
     Selector selector;
+
+    /* Incharge of displaying objectiveNumber in screen */
     Objective objective;
+
+    /* First number picked by the user. If no selection has been made it equals -1 */
     int userSelection1;
+
+    /* Second number picked by the user. If no selection has been made it equals -1 */
     int userSelection2;
 
     GamePanel(){
-
-
         // Create and instanciate the array of blocks
         block = new Block[NUM_OF_BLOCKS];
         for(int i = 0; i < NUM_OF_BLOCKS; i++ ){
@@ -41,7 +62,6 @@ public class GamePanel extends JPanel implements Runnable{
        
         random = new Random();
         setNewNumbers();
-
 
         this.setPreferredSize(SCREEN_SIZE);
         this.setFocusable(true);
@@ -59,7 +79,6 @@ public class GamePanel extends JPanel implements Runnable{
         g.drawImage(image, 0, 0, this);
 
     }
-
 
     public void setNewNumbers(){
         int solIndex1;
@@ -98,7 +117,6 @@ public class GamePanel extends JPanel implements Runnable{
             }
 
         }
-
         
         objective.setValue(objectiveNumber);
 

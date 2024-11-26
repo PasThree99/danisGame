@@ -5,6 +5,7 @@ import javax.swing.*;
 
 public class Game{
     public static void main(String args[]){
+        /* Main class for the game */
         GameFrame frame = new GameFrame();
     }
 }

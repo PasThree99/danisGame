@@ -9,6 +9,13 @@ public class Block extends Rectangle{
 
 
     Block(int xPos, int yPos, int size){
+        /* 
+         * The block is one of the core classes of this game.
+         * Its objective is to display the user with the options
+         * he will choose from to sum up. One of the blocks will
+         * be wrapped by the Selector. This means that the user is
+         * "hovering" over that specific block
+         */
         super (xPos, yPos, size, size);
 
     }

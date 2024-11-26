@@ -1,17 +1,12 @@
 #!/bin/bash
 
+# This probably wont work on windows.
+# This is basically a helper program to remove all the old
+# clasess, crate them from scratch and if everything 
+# succeeded, run the game. 
+
+
 rm -rf ./*.class
-
-# files=$(ls -la | grep .java | awk '{print $9}')
-
-# for file in $files; do 
-#     javac $file
-#     if [ $? -ne 0 ]; then
-#         echo "ERROR: failed to compile $file"
-#         exit 1
-#     fi
-# done
-
 
 file="Objective.java"
 javac $file
@@ -54,7 +49,5 @@ if [ $? -ne 0 ]; then
     echo "ERROR: failed to compile $file"
     exit 1
 fi
-
-
 
 java Game
