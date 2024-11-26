@@ -32,6 +32,7 @@ public class Block extends Rectangle{
         // TODO: Center xText and yText
         int xText = x + (width - textWidth) / 2;
         int yText = y + (height - textHeight) / 2 + metrics.getAscent();
+        g.setFont(font);
         g.setColor(Color.red);
         g.fillRect(x, y, width, height);
         g.setColor(Color.white);

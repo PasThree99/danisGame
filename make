@@ -8,6 +8,13 @@
 
 rm -rf ./*.class
 
+file="Score.java"
+javac $file
+if [ $? -ne 0 ]; then
+    echo "ERROR: failed to compile $file"
+    exit 1
+fi
+
 file="Objective.java"
 javac $file
 if [ $? -ne 0 ]; then

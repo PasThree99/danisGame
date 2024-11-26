@@ -15,11 +15,14 @@ public class GamePanel extends JPanel implements Runnable{
     /* Game Dimension */
     static final Dimension SCREEN_SIZE = new Dimension(GAME_WIDTH, GAME_HEIGHT);
     
-    /* Num of blocks on the game (change BLOCK_SIZE if they no longer fit) */
-    static final int NUM_OF_BLOCKS = 4;
-    
+    /* Num of blocks in the game (change BLOCK_SIZE if they no longer fit) */
+    static final int NUM_OF_BLOCKS = 6;
+
     /* Block size in pixels (square with side BLOCKS_SIZE px) */
     static final int BLOCKS_SIZE = 100;
+    
+    /* This is the higgest number that will appear in the blocks and objective */
+    static final int MAX_NUMBER = 10;
     
     /* Target number */
     int objectiveNumber;
@@ -35,7 +38,7 @@ public class GamePanel extends JPanel implements Runnable{
     /* Array of blocks */
     Block[] block;
 
-    /* User selector*/
+    /* User selector */
     Selector selector;
 
     /* Incharge of displaying objectiveNumber in screen */
@@ -46,6 +49,12 @@ public class GamePanel extends JPanel implements Runnable{
 
     /* Second number picked by the user. If no selection has been made it equals -1 */
     int userSelection2;
+    
+    /* Score p1 vs p2 */
+    Score score;
+
+    /* Who´s turn is it? p1 or p2? */
+    int player;
 
     GamePanel(){
         // Create and instanciate the array of blocks
@@ -59,9 +68,13 @@ public class GamePanel extends JPanel implements Runnable{
         // Create the selector and pass the globals
         selector = new Selector(GAME_WIDTH / 2 - BLOCKS_SIZE, 100, BLOCKS_SIZE);
         selector.setGlobals(GAME_WIDTH, GAME_HEIGHT, NUM_OF_BLOCKS, BLOCKS_SIZE);
+        
+        score = new Score(GAME_WIDTH - 2 * BLOCKS_SIZE, 0, BLOCKS_SIZE);
        
         random = new Random();
         setNewNumbers();
+
+        player = 1;
 
         this.setPreferredSize(SCREEN_SIZE);
         this.setFocusable(true);
@@ -88,7 +101,7 @@ public class GamePanel extends JPanel implements Runnable{
         int num;
 
         /* initTheBlocks and objective */
-        objectiveNumber = random.nextInt(11);
+        objectiveNumber = random.nextInt(MAX_NUMBER + 1);
         solIndex1 = random.nextInt(NUM_OF_BLOCKS);
         solIndex2 = random.nextInt(NUM_OF_BLOCKS);
         
@@ -112,10 +125,9 @@ public class GamePanel extends JPanel implements Runnable{
                 block[i].setValue(sol2);
             }
             else{
-                num = random.nextInt(11);
+                num = random.nextInt(MAX_NUMBER + 1);
                 block[i].setValue(num);
             }
-
         }
         
         objective.setValue(objectiveNumber);
@@ -135,6 +147,7 @@ public class GamePanel extends JPanel implements Runnable{
         }
         selector.draw(g);
         objective.draw(g);
+        score.draw(g);
     }
 
     public void move(){
@@ -159,16 +172,35 @@ public class GamePanel extends JPanel implements Runnable{
                 System.out.println("test");
             }
         }
-
     }
 
-    public void  validateAnswer(){
+    public void changePlayer(){
+        if(player == 1){
+            player ++;
+        }
+        else{
+            player --;
+        }
+    }
+
+    public void increaseScore(){
+        if(player == 1){
+            score.inceaseP1();
+        }
+        else{
+            score.inceaseP2();
+        }
+        changePlayer();
+    }
+
+    public void validateAnswer(){
         if(userSelection1 + userSelection2 == objectiveNumber){
             showMessageDialog(null, "Correct!");
-            // Increase score
+            increaseScore();
         }
         else{
             showMessageDialog(null, "Error :(");
+            changePlayer();
         }
     }
 
@@ -190,7 +222,11 @@ public class GamePanel extends JPanel implements Runnable{
         }
         else{
             userSelection2 = block[idx].getValue();
+
+            /* Check if the user is correct, update score and change player */
             validateAnswer();
+
+            /* Create new case for next player */
             setNewNumbers();
         }
     }
